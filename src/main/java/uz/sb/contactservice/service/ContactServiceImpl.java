@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.sb.contactservice.clients.AuthServiceClient;
 import uz.sb.contactservice.domain.entity.ContactEntity;
-import uz.sb.contactservice.domain.exception.UnauthorizedException;
+import uz.sb.contactservice.domain.exception.DataNotFoundException;
+import uz.sb.contactservice.domain.exception.UserNotFoundException;
 import uz.sb.contactservice.repository.ContactRepository;
 import uz.sb.domain.dto.request.ContactRequest;
 import uz.sb.domain.dto.response.ContactResponse;
+import uz.sb.domain.dto.response.UserResponse;
 
 
 import java.util.List;
@@ -24,11 +26,12 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public ContactResponse save(ContactRequest contactRequest) {
 
-        boolean isAuthorized = authServiceClient.isUserAuthorized(contactRequest.getContactUserId());
+        UserResponse existsUser = authServiceClient.findById(contactRequest.getContactUserId());
 
-        if (!isAuthorized) {
-            throw new UnauthorizedException("User is not authorized");
+        if (existsUser == null) {
+            throw new UserNotFoundException("User not found with id " + contactRequest.getContactUserId());
         }
+
 
         ContactEntity contactEntity = ContactEntity.builder()
                 .contactName(contactRequest.getContactName())
@@ -66,7 +69,7 @@ public class ContactServiceImpl implements ContactService {
     public ContactResponse update(Long id, ContactRequest contactRequest) {
         ContactEntity existsContact = findById(id);
         if (existsContact == null) {
-            throw new RuntimeException("Contact not found");
+            throw new DataNotFoundException("Contact not found");
         }
         existsContact.setContactName(contactRequest.getContactName());
         existsContact.setContactUserId(contactRequest.getContactUserId());
