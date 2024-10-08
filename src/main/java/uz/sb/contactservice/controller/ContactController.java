@@ -2,16 +2,17 @@ package uz.sb.contactservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import uz.sb.contactservice.domain.dto.request.ContactRequest;
-import uz.sb.contactservice.domain.dto.response.ContactResponse;
 import uz.sb.contactservice.domain.entity.ContactEntity;
 import uz.sb.contactservice.service.ContactServiceImpl;
+import uz.sb.domain.dto.request.ContactRequest;
+import uz.sb.domain.dto.response.ContactResponse;
 
 import java.util.List;
 
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/contact")
+@RequestMapping("/api/contact")
 public class ContactController {
 
     private final ContactServiceImpl contactService;
