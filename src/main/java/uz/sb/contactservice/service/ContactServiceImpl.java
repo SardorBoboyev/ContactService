@@ -32,6 +32,19 @@ public class ContactServiceImpl implements ContactService {
             throw new UserNotFoundException("User not found with id " + contactRequest.getContactUserId());
         }
 
+        ContactEntity existingContactEntity = contactRepository.findByContactUserIdAndContactName(contactRequest.getContactUserId(), contactRequest.getContactName());
+
+        if (existingContactEntity != null) {
+            // Update the existing contact's name if it's found
+            existingContactEntity.setContactName(contactRequest.getContactName());
+            contactRepository.save(existingContactEntity);
+            return ContactResponse.builder()
+                    .id(existingContactEntity.getId())
+                    .contactName(existingContactEntity.getContactName())
+                    .contactUserId(existingContactEntity.getContactUserId())
+                    .userId(existingContactEntity.getUserId())
+                    .build();
+        }
 
         ContactEntity contactEntity = ContactEntity.builder()
                 .contactName(contactRequest.getContactName())
@@ -48,9 +61,10 @@ public class ContactServiceImpl implements ContactService {
                 .build();
     }
 
+
     @Override
     public ContactEntity findById(Long id) {
-        return contactRepository.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
+        return contactRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Contact not found"));
     }
 
     @Override
@@ -93,4 +107,10 @@ public class ContactServiceImpl implements ContactService {
     public List<ContactResponse> searchByName(String name) {
         return contactRepository.searchByContactNameContaining(name);
     }
+
+    @Override
+    public boolean existsByContactName(String contactName) {
+        return contactRepository.existsByContactName(contactName);
+    }
+
 }
