@@ -5,12 +5,13 @@ import uz.sb.contactservice.domain.entity.ContactEntity;
 import uz.sb.domain.dto.request.ContactRequest;
 import uz.sb.domain.dto.response.ContactResponse;
 
+
 import java.util.List;
 
 @Service
 public interface ContactService {
 
-    ContactResponse save(ContactRequest contactRequest);
+     ContactResponse save(ContactRequest contactRequest);
 
     ContactEntity findById(Long id);
 
@@ -21,5 +22,7 @@ public interface ContactService {
     void delete(Long id);
 
     List<ContactResponse> searchByName(String name);
+
+    boolean existsByContactName(String contactName);
 
 }

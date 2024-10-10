@@ -11,4 +11,9 @@ import java.util.List;
 public interface ContactRepository extends JpaRepository<ContactEntity, Long> {
 
     List<ContactResponse> searchByContactNameContaining(String name);
+
+    ContactEntity findByContactUserIdAndContactName(Long contactUserId, String contactName);
+
+    boolean existsByContactName(String contactName);
+
 }
