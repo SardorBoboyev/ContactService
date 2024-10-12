@@ -7,8 +7,8 @@ spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/chat_database
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:samarkand2004@@}
-jpa:
+    password: ${DB_PASSWORD:9999}
+  jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
