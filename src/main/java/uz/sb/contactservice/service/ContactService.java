@@ -1,9 +1,9 @@
 package uz.sb.contactservice.service;
 
 import org.springframework.stereotype.Service;
+import uz.sb.contactservice.domain.dto.request.ContactRequest;
+import uz.sb.contactservice.domain.dto.response.ContactResponse;
 import uz.sb.contactservice.domain.entity.ContactEntity;
-import uz.sb.domain.dto.request.ContactRequest;
-import uz.sb.domain.dto.response.ContactResponse;
 
 
 import java.util.List;

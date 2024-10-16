@@ -26,9 +26,9 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew clean build
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          TOKEN: ${{ secrets.TOKEN }}
+#        env:
+#          USERNAME: ${{ secrets.USERNAME }}
+#          TOKEN: ${{ secrets.TOKEN }}
 
       # Step 4: Set up Docker
       - name: Set up Docker
@@ -44,5 +44,5 @@ jobs:
       # Step 6: Build and push Docker image
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/contact-service:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/contact-service:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/contact-service1:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/contact-service1:latest

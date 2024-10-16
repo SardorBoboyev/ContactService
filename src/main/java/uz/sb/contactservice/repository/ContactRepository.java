@@ -2,8 +2,9 @@ package uz.sb.contactservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import uz.sb.contactservice.domain.dto.response.ContactResponse;
 import uz.sb.contactservice.domain.entity.ContactEntity;
-import uz.sb.domain.dto.response.ContactResponse;
+
 
 import java.util.List;
 
