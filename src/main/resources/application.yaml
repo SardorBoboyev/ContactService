@@ -2,7 +2,6 @@ server:
   port: 8095
 
 
-
 spring:
   application:
     name: CONTACT-SERVICE
