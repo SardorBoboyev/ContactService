@@ -11,7 +11,7 @@ import uz.sb.contactservice.filter.CustomFilter;
 @Configuration
 public class SecurityConfig {
 
-    private final String[] WHITE_LIST = {"/api/deposit/swagger-ui/**", "/api/deposit/v3/api-docs/**"};
+    private final String[] WHITE_LIST = {"/api/contact/**","/api/deposit/swagger-ui/**", "/api/deposit/v3/api-docs/**"};
 
 
     @Bean
