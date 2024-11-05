@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class ContactResponse extends BaseResponse {
+public class ContactResponse {
     private Long id;
     private Long userId; // adder
     private Long contactUserId;  // person to join contact
