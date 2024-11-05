@@ -37,14 +37,14 @@ public class ContactController {
         return contactService.findById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
         contactService.delete(id);
     }
 
     @GetMapping("/search")
-    List<ContactResponse> search(@RequestBody String name) {
-        return contactService.searchByName(name);
+    List<ContactResponse> search(@RequestParam ("contactName")String contactName) {
+        return contactService.searchByName(contactName);
     }
 
     @GetMapping("/all-contacts-user/{userId}")

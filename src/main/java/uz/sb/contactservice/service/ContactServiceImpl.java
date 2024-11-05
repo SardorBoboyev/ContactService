@@ -12,6 +12,7 @@ import uz.sb.contactservice.domain.exception.UserNotFoundException;
 import uz.sb.contactservice.repository.ContactRepository;
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class ContactServiceImpl implements ContactService {
                     .id(existingContactEntity.getId())
                     .contactName(existingContactEntity.getContactName())
                     .contactUserId(existingContactEntity.getContactUserId())
-                    .userId(existingContactEntity.getUserId())
+//                    .userId(existingContactEntity.getUserId())
                     .build();
         }
 
@@ -57,7 +58,7 @@ public class ContactServiceImpl implements ContactService {
                 .id(contactEntity.getId())
                 .contactName(contactEntity.getContactName())
                 .contactUserId(contactEntity.getContactUserId())
-                .userId(contactEntity.getUserId())
+//                .userId(contactEntity.getUserId())
                 .build();
     }
 
@@ -74,7 +75,7 @@ public class ContactServiceImpl implements ContactService {
                 .id(customer.getId())
                 .contactName(customer.getContactName())
                 .contactUserId(customer.getContactUserId())
-                .userId(customer.getUserId())
+//                .userId(customer.getUserId())
                 .build())
                 .collect(Collectors.toList());
     }
@@ -85,8 +86,8 @@ public class ContactServiceImpl implements ContactService {
         if (existsContact == null) {
             throw new DataNotFoundException("Contact not found");
         }
+
         existsContact.setContactName(contactRequest.getContactName());
-        existsContact.setContactUserId(contactRequest.getContactUserId());
 
         ContactEntity savedContact = contactRepository.save(existsContact);
 
@@ -94,9 +95,9 @@ public class ContactServiceImpl implements ContactService {
                 .id(savedContact.getId())
                 .contactName(savedContact.getContactName())
                 .contactUserId(savedContact.getContactUserId())
-                //.userId(savedContact.getUserId())
                 .build();
     }
+
 
     @Override
     public void delete(Long id) {
@@ -104,9 +105,23 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<ContactResponse> searchByName(String name) {
-        return contactRepository.searchByContactNameContaining(name);
+    public List<ContactResponse> searchByName(String contactName) {
+        if (contactName == null || contactName.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<ContactEntity> contactEntities = contactRepository.findByContactNameContaining(contactName);
+        System.out.println("Searching contacts: " + contactEntities);
+
+        return contactEntities.stream()
+                .map(contactEntity -> new ContactResponse(
+                        contactEntity.getId(),
+//                        contactEntity.getUserId(),
+                        contactEntity.getContactUserId(),
+                        contactEntity.getContactName()
+                ))
+                .collect(Collectors.toList());
     }
+
 
 
     @Override
@@ -116,7 +131,7 @@ public class ContactServiceImpl implements ContactService {
                         .id(contactEntity.getId())
                         .contactName(contactEntity.getContactName())
                         .contactUserId(contactEntity.getContactUserId())
-                        .userId(contactEntity.getUserId())
+//                        .userId(contactEntity.getUserId())
                         .build()
                 ).collect(Collectors.toList());
     }

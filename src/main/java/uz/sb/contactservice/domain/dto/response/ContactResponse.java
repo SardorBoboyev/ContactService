@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class ContactResponse {
     private Long id;
-    private Long userId; // adder
+//    private Long userId; // adder
     private Long contactUserId;  // person to join contact
     private String contactName;
 }

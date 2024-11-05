@@ -21,7 +21,7 @@ public interface ContactService {
 
     void delete(Long id);
 
-    List<ContactResponse> searchByName(String name);
+    List<ContactResponse> searchByName(String contactName);
 
     List<ContactResponse> findAllContactsByUserId(Long userId);
 
