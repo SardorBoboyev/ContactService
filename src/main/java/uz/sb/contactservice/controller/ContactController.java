@@ -46,4 +46,9 @@ public class ContactController {
     List<ContactResponse> search(@RequestBody String name) {
         return contactService.searchByName(name);
     }
+
+    @GetMapping("/all-contacts-user/{userId}")
+    List<ContactResponse> allContactsUser(@PathVariable("userId") Long userId) {
+        return contactService.findAllContactsByUserId(userId);
+    }
 }

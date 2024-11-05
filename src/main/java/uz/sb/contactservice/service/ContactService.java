@@ -23,6 +23,8 @@ public interface ContactService {
 
     List<ContactResponse> searchByName(String name);
 
-    boolean existsByContactName(String contactName);
+    List<ContactResponse> findAllContactsByUserId(Long userId);
+
+
 
 }

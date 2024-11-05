@@ -108,9 +108,18 @@ public class ContactServiceImpl implements ContactService {
         return contactRepository.searchByContactNameContaining(name);
     }
 
+
     @Override
-    public boolean existsByContactName(String contactName) {
-        return contactRepository.existsByContactName(contactName);
+    public List<ContactResponse> findAllContactsByUserId(Long userId) {
+        return contactRepository.findByUserId(userId).stream()
+                        .map(contactEntity -> ContactResponse.builder()
+                        .id(contactEntity.getId())
+                        .contactName(contactEntity.getContactName())
+                        .contactUserId(contactEntity.getContactUserId())
+                        .userId(contactEntity.getUserId())
+                        .build()
+                ).collect(Collectors.toList());
     }
+
 
 }
