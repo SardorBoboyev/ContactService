@@ -10,5 +10,5 @@ import uz.sb.contactservice.domain.dto.response.UserResponse;
 public interface AuthServiceClient {
 
     @GetMapping("api/auth/find-by-id/{id}")
-    UserResponse findById(@PathVariable Long id);
+    UserResponse findById(@PathVariable("id") Long id);
 }
